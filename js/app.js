@@ -1,7 +1,7 @@
 import { searchMovies, getMovieById } from "./api.js";
 import { saveFavorite, removeFavorite, getAllFavorites } from "./db.js";
 
-const YT_API_KEY = "AIzaSyBkVxwsREwoHOsJF-tEl8mzIpP4pySaBL4";
+const YT_API_KEY = "AIzaSyBQAVnAtIIE5hkp57p0I4F1AT2zaWX-UuI";
 
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
