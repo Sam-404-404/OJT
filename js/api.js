@@ -1,19 +1,21 @@
-const API_KEY = "4f9abeab";
-const BASE_URL = "https://www.omdbapi.com/";
+var API_KEY = "4f9abeab";
+var BASE_URL = "https://www.omdbapi.com/";
 
 export async function searchMovies(query, page) {
   if (!query) {
     return { Search: [], totalResults: 0 };
   }
 
-  let url = BASE_URL + "?apikey=" + API_KEY + "&s=" + encodeURIComponent(query.trim()) + "&page=" + page;
+  var url = BASE_URL + "?apikey=" + API_KEY + "&s=" + encodeURIComponent(query) + "&page=" + page;
 
-  let res = await fetch(url);
-  if (!res.ok) {
+  var response = await fetch(url);
+  
+  if (!response.ok) {
     throw new Error("Network error while searching.");
   }
 
-  let data = await res.json();
+  var data = await response.json();
+  
   if (data.Response === "False") {
     throw new Error(data.Error || "No results found.");
   }
@@ -22,14 +24,16 @@ export async function searchMovies(query, page) {
 }
 
 export async function getMovieById(imdbID) {
-  let url = BASE_URL + "?apikey=" + API_KEY + "&i=" + imdbID + "&plot=full";
+  var url = BASE_URL + "?apikey=" + API_KEY + "&i=" + imdbID + "&plot=full";
 
-  let res = await fetch(url);
-  if (!res.ok) {
+  var response = await fetch(url);
+  
+  if (!response.ok) {
     throw new Error("Network error while loading details.");
   }
 
-  let data = await res.json();
+  var data = await response.json();
+  
   if (data.Response === "False") {
     throw new Error(data.Error || "Could not load details.");
   }

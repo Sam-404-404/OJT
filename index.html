@@ -134,39 +134,35 @@
       var audio = document.getElementById("introMusic");
       var startBtn = document.getElementById("startBtn");
       var introScreen = document.getElementById("introScreen");
+      var audioPlaying = false;
 
-      var audioStarted = false;
-      audio.volume = 0;
+      audio.volume = 0.4;
 
-      function fadeInAudio() {
-        if (audioStarted) return;
-        audioStarted = true;
-
+      function playIntroMusic() {
+        if (audioPlaying) return;
+        
         audio.play().then(function() {
-          var fade = setInterval(function() {
-            if (audio.volume < 0.4) {
-              audio.volume += 0.02;
-            } else {
-              clearInterval(fade);
-            }
-          }, 120);
+          audioPlaying = true;
+        }).catch(function(error) {
+          console.log("Audio play failed:", error);
         });
       }
 
-      audio.play().catch(function() {
-        introScreen.addEventListener("click", fadeInAudio, { once: true });
-      });
+      introScreen.addEventListener("click", playIntroMusic);
+      introScreen.addEventListener("touchstart", playIntroMusic);
+      introScreen.addEventListener("mousemove", playIntroMusic, { once: true });
 
       startBtn.addEventListener("click", function() {
-        var fadeOut = setInterval(function() {
-          if (audio.volume > 0.02) {
-            audio.volume -= 0.02;
+        var fadeOutInterval = setInterval(function() {
+          if (audio.volume > 0.05) {
+            audio.volume = audio.volume - 0.05;
           } else {
-            clearInterval(fadeOut);
+            clearInterval(fadeOutInterval);
             audio.pause();
             audio.currentTime = 0;
+            audio.volume = 0.4;
           }
-        }, 80);
+        }, 50);
 
         introScreen.classList.add("hide");
       });
