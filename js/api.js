@@ -1,12 +1,15 @@
-var API_KEY = "4f9abeab";
+var API_KEY = "86bf3871";
 var BASE_URL = "https://www.omdbapi.com/";
 
-export async function searchMovies(query, page) {
+export async function searchMovies(query, page, year) {
   if (!query) {
     return { Search: [], totalResults: 0 };
   }
 
-  var url = BASE_URL + "?apikey=" + API_KEY + "&s=" + encodeURIComponent(query) + "&page=" + page;
+  var url = BASE_URL + "?apikey=" + API_KEY + "&s=" + encodeURIComponent(query) + "&page=" + page + "&type=movie";
+  if (year) {
+    url = url + "&y=" + year;
+  }
 
   var response = await fetch(url);
   

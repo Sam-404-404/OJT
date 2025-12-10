@@ -70,10 +70,8 @@ function filterMovies(movies) {
   
   for (var i = 0; i < movies.length; i++) {
     var movie = movies[i];
-    if (movie.Poster && movie.Poster !== "N/A") {
-      if (movie.Type === "movie" || movie.Type === "series" || !movie.Type) {
-        result.push(movie);
-      }
+    if (movie.Type === "movie" || movie.Type === "series" || !movie.Type) {
+      result.push(movie);
     }
   }
   
@@ -143,13 +141,16 @@ function createMovieCard(movie) {
 
   var posterImage = document.createElement("img");
   posterImage.className = "poster-img";
+  var posterUrl = "https://via.placeholder.com/300x450/1a1a2e/ffffff?text=" + encodeURIComponent(movie.Title || "No Image");
   if (movie.Poster && movie.Poster !== "N/A") {
-    posterImage.src = movie.Poster;
-  } else {
-    posterImage.src = "https://via.placeholder.com/300x450?text=No+Image";
+    posterUrl = movie.Poster;
   }
+  posterImage.src = posterUrl;
   posterImage.alt = movie.Title || "Movie Poster";
   posterImage.loading = "lazy";
+  posterImage.onerror = function() {
+    this.src = "https://via.placeholder.com/300x450/1a1a2e/ffffff?text=" + encodeURIComponent(movie.Title || "No Image");
+  };
   posterContainer.appendChild(posterImage);
 
   var trailerContainer = document.createElement("div");
@@ -435,6 +436,18 @@ for (var i = 0; i < genreChips.length; i++) {
     if (chipText === "All") {
       selectedGenreFilter = "";
       searchQuery = "movie";
+    } else if (chipText === "Crime") {
+      selectedGenreFilter = "Crime";
+      searchQuery = "crime";
+    } else if (chipText === "Sci-Fi") {
+      selectedGenreFilter = "Sci-Fi";
+      searchQuery = "sci-fi";
+    } else if (chipText === "Comedy") {
+      selectedGenreFilter = "Comedy";
+      searchQuery = "comedy";
+    } else if (chipText === "Adventure") {
+      selectedGenreFilter = "Adventure";
+      searchQuery = "adventure";
     } else {
       selectedGenreFilter = chipText;
       searchQuery = chipText;
