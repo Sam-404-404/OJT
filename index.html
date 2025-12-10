@@ -4,45 +4,30 @@
   <meta charset="UTF-8" />
   <title>CineScope</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
- <audio id="introMusic" src="audio.mp3" loop autoplay playsinline></audio>
+  <audio id="introMusic" src="audio.mp3" loop autoplay playsinline></audio>
+
   <div id="introScreen">
     <h1 id="introLogo" class="logo-intro">CINESCOPE</h1>
-
-    <!-- TAGLINE GOES HERE -->
     <p id="introTagline">Enter the Cinematic Unknown.</p>
-
     <button id="startBtn">Get Started</button>
-</div>
+  </div>
 
-
-  <!-- HERO SECTION -->
   <header class="hero">
     <h1 class="logo">CineScope</h1>
     <p class="tagline">Discover. Decide. Dive in.</p>
 
-    <!-- Search Bar -->`
     <div class="search-bar">
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Search for Movies or Series..."
-      />
+      <input id="searchInput" type="text" placeholder="Search for Movies or Series..." />
       <button id="searchBtn" aria-label="Search">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </div>
 
-    <!-- Filter Chips -->
     <div class="chips-row">
       <button class="chip chip-type active">All</button>
       <button class="chip chip-type">Crime</button>
@@ -51,7 +36,6 @@
       <button class="chip chip-type">Adventure</button>
     </div>
 
-    <!-- Sort Dropdown -->
     <div class="sort-row">
       <span>Sort by:</span>
       <select id="sortSelect">
@@ -65,37 +49,32 @@
     <p id="statusText" class="status-text">Loading movies…</p>
   </header>
 
-  <!-- RESULTS SECTION -->
+
   <main>
     <section class="section">
-      <!-- BACK BUTTON -->
-<button id="backBtn" class="back-btn">
-  <i class="fa-solid fa-arrow-left"></i> Back
-</button>
+      <button id="backBtn" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back
+      </button>
+
       <div class="section-header">
-        
         <div class="section-accent"></div>
       </div>
 
       <div id="resultsRow" class="card-row"></div>
 
-      <!-- PAGINATION -->
       <div class="pagination">
         <button id="prevBtn" class="page-btn">&lt; Prev</button>
         <span id="pageInfo">Page 1</span>
         <button id="nextBtn" class="page-btn">Next &gt;</button>
       </div>
-
     </section>
   </main>
 
-  <!-- FLOATING FAVORITES BUTTON -->
   <button id="favToggle" class="fav-floating" aria-label="Open favorites">
     <i class="fa-solid fa-heart"></i>
     <span id="favCount">0</span>
   </button>
 
-  <!-- FAVORITES SLIDE PANEL -->
   <aside id="favPanel" class="fav-panel">
     <div class="fav-header">
       <h3>Your Favorites</h3>
@@ -106,136 +85,115 @@
     <div id="favoritesRow" class="fav-list"></div>
   </aside>
 
-  <!-- DARK OVERLAY WHEN FAVORITES PANEL IS OPEN -->
   <div id="panelOverlay" class="panel-overlay"></div>
 
-  <!-- MOVIE DETAILS MODAL -->
   <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true">
-
-      <button id="closeModalBtn" class="modal-close" aria-label="Close">
-        &times;
-      </button>
-
-      <!-- Poster -->
+      <button id="closeModalBtn" class="modal-close" aria-label="Close">&times;</button>
       <img id="modalPoster" class="modal-poster" alt="Movie Poster" />
 
-      <!-- Modal Body -->
       <div class="modal-body">
         <h2 id="modalTitle"></h2>
         <p id="modalTopMeta" class="modal-top-meta"></p>
-
         <p id="modalPlot"></p>
 
-        <!-- Meta Boxes Grid -->
         <div class="modal-meta-grid">
           <div class="meta-box">
             <span class="meta-label">Genre</span>
             <span id="modalGenre" class="meta-value"></span>
           </div>
-
           <div class="meta-box">
             <span class="meta-label">Director</span>
             <span id="modalDirector" class="meta-value"></span>
           </div>
-
           <div class="meta-box">
             <span class="meta-label">Cast</span>
             <span id="modalCast" class="meta-value"></span>
           </div>
-
           <div class="meta-box">
             <span class="meta-label">Box Office</span>
             <span id="modalBoxOffice" class="meta-value"></span>
           </div>
         </div>
 
-        <!-- Modal Buttons -->
         <div class="modal-actions">
           <button id="modalFavBtn" class="modal-main-btn">
             <i class="fa-solid fa-heart"></i>
             <span>Add to Favorites</span>
           </button>
-
-          <a
-            id="imdbLink"
-            class="modal-secondary-btn"
-            href="#"
-            target="_blank"
-            rel="noopener"
-          >
-            IMDb
-          </a>
+          <a id="imdbLink" class="modal-secondary-btn" href="#" target="_blank" rel="noopener">IMDb</a>
         </div>
-
       </div>
     </div>
   </div>
-  <!-- JS MAIN APP -->
-  <script type="module" src="js/app.js?v=2"></script>
 
-<!-- AUDIO AUTOPLAY SCRIPT -->
-    <script>
-window.addEventListener("DOMContentLoaded", () => {
-  const audio = document.getElementById("introMusic");
-  const startBtn = document.getElementById("startBtn");
-  const introScreen = document.getElementById("introScreen");
+  <script type="module" src="js/app.js"></script>
 
-  let audioStarted = false;
-  audio.volume = 0;
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      var audio = document.getElementById("introMusic");
+      var startBtn = document.getElementById("startBtn");
+      var introScreen = document.getElementById("introScreen");
 
-  function fadeInAudio() {
-    if (audioStarted) return;
-    audioStarted = true;
+      var audioStarted = false;
+      audio.volume = 0;
 
-    audio.play().then(() => {
-      let fade = setInterval(() => {
-        if (audio.volume < 0.4) audio.volume += 0.02;
-        else clearInterval(fade);
-      }, 120);
-    });
-  }
+      function fadeInAudio() {
+        if (audioStarted) return;
+        audioStarted = true;
 
-  audio.play().catch(() => {
-    introScreen.addEventListener("click", fadeInAudio, { once: true });
-  });
-
-  // --- FADE OUT ON START ---
-  startBtn.addEventListener("click", () => {
-    let fadeOut = setInterval(() => {
-      if (audio.volume > 0.02) audio.volume -= 0.02;
-      else {
-        clearInterval(fadeOut);
-        audio.pause();
-        audio.currentTime = 0;
+        audio.play().then(function() {
+          var fade = setInterval(function() {
+            if (audio.volume < 0.4) {
+              audio.volume += 0.02;
+            } else {
+              clearInterval(fade);
+            }
+          }, 120);
+        });
       }
-    }, 80);
 
-    introScreen.classList.add("hide");
-  });
+      audio.play().catch(function() {
+        introScreen.addEventListener("click", fadeInAudio, { once: true });
+      });
 
-  // --- ✅ BACK BUTTON FIXED ---
-  const backBtn = document.getElementById("backBtn");
-  backBtn.addEventListener("click", () => {
-    const searchInput = document.getElementById("searchInput");
-    searchInput.value = "";
+      startBtn.addEventListener("click", function() {
+        var fadeOut = setInterval(function() {
+          if (audio.volume > 0.02) {
+            audio.volume -= 0.02;
+          } else {
+            clearInterval(fadeOut);
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        }, 80);
 
-    window.baseQuery = "aa";
-    window.currentPage = 1;
+        introScreen.classList.add("hide");
+      });
 
-    document.querySelectorAll(".chip-type").forEach(c => c.classList.remove("active"));
-    document.querySelector(".chip-type").classList.add("active");
+      var backBtn = document.getElementById("backBtn");
+      backBtn.addEventListener("click", function() {
+        var searchInput = document.getElementById("searchInput");
+        searchInput.value = "";
 
-    document.getElementById("sortSelect").value = "relevance";
+        window.baseQuery = "aa";
+        window.currentPage = 1;
 
-    if (window.loadHomepageMovies) {
-      window.loadHomepageMovies();
-    } else if (typeof loadPage === "function") {
-      loadPage(1);
-    }
-  });
+        var chips = document.querySelectorAll(".chip-type");
+        for (var i = 0; i < chips.length; i++) {
+          chips[i].classList.remove("active");
+        }
+        chips[0].classList.add("active");
 
-});
-</script>
+        document.getElementById("sortSelect").value = "relevance";
+
+        if (window.loadHomepageMovies) {
+          window.loadHomepageMovies();
+        } else if (typeof loadPage === "function") {
+          loadPage(1);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

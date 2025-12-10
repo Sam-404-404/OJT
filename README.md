@@ -25,4 +25,4 @@ Just open `index.html` in your browser. No build step needed.
 
 ## Preview
 
-The app opens with a cinematic intro screen, then drops you into a curated homepage of popular movies. Search for anything, click a card for details, and heart your favorites.
+The app opens with a cinematic intro screen, then drops you into a curated homepage of popular movies. Search for anything, click a card for details, and heart your favor

@@ -1,50 +1,66 @@
-// js/db.js
 const DB_NAME = "CineScopeDB";
 const DB_VERSION = 1;
-const STORE = "favorites";
+const STORE_NAME = "favorites";
 
 function openDatabase() {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
+  return new Promise(function(resolve, reject) {
+    let request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    req.onupgradeneeded = () => {
-      const db = req.result;
-      if (!db.objectStoreNames.contains(STORE)) {
-        db.createObjectStore(STORE, { keyPath: "imdbID" });
+    request.onupgradeneeded = function() {
+      let db = request.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: "imdbID" });
       }
     };
 
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
+    request.onsuccess = function() {
+      resolve(request.result);
+    };
+
+    request.onerror = function() {
+      reject(request.error);
+    };
   });
 }
 
 export async function saveFavorite(movie) {
-  const db = await openDatabase();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, "readwrite");
-    tx.objectStore(STORE).put(movie);
-    tx.oncomplete = () => resolve(true);
-    tx.onerror = () => reject(tx.error);
+  let db = await openDatabase();
+  return new Promise(function(resolve, reject) {
+    let tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).put(movie);
+    tx.oncomplete = function() {
+      resolve(true);
+    };
+    tx.onerror = function() {
+      reject(tx.error);
+    };
   });
 }
 
 export async function removeFavorite(imdbID) {
-  const db = await openDatabase();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, "readwrite");
-    tx.objectStore(STORE).delete(imdbID);
-    tx.oncomplete = () => resolve(true);
-    tx.onerror = () => reject(tx.error);
+  let db = await openDatabase();
+  return new Promise(function(resolve, reject) {
+    let tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).delete(imdbID);
+    tx.oncomplete = function() {
+      resolve(true);
+    };
+    tx.onerror = function() {
+      reject(tx.error);
+    };
   });
 }
 
 export async function getAllFavorites() {
-  const db = await openDatabase();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, "readonly");
-    const req = tx.objectStore(STORE).getAll();
-    req.onsuccess = () => resolve(req.result || []);
-    req.onerror = () => reject(req.error);
+  let db = await openDatabase();
+  return new Promise(function(resolve, reject) {
+    let tx = db.transaction(STORE_NAME, "readonly");
+    let request = tx.objectStore(STORE_NAME).getAll();
+    request.onsuccess = function() {
+      resolve(request.result || []);
+    };
+    request.onerror = function() {
+      reject(request.error);
+    };
   });
 }
