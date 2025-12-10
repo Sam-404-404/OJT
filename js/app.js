@@ -77,17 +77,6 @@ function filterMovies(movies) {
     }
   }
   
-  if (selectedGenreFilter !== "") {
-    var genreFiltered = [];
-    for (var i = 0; i < result.length; i++) {
-      var movieGenre = result[i].Genre || result[i].Title || "";
-      if (movieGenre.toLowerCase().includes(selectedGenreFilter.toLowerCase())) {
-        genreFiltered.push(result[i]);
-      }
-    }
-    result = genreFiltered;
-  }
-  
   if (selectedSortOption === "year-desc") {
     result.sort(function(a, b) {
       var yearA = parseInt(a.Year) || 0;
@@ -445,11 +434,13 @@ for (var i = 0; i < genreChips.length; i++) {
     var chipText = this.textContent.trim();
     if (chipText === "All") {
       selectedGenreFilter = "";
+      searchQuery = "movie";
     } else {
       selectedGenreFilter = chipText;
+      searchQuery = chipText;
     }
     currentPageNumber = 1;
-    displayMovies();
+    loadMoviesPage(currentPageNumber);
   });
 }
 
