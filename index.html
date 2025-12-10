@@ -46,7 +46,7 @@
       </select>
     </div>
 
-    <p id="statusText" class="status-text">Loading movies…</p>
+    <p id="statusText" class="status-text" style="display:none;"></p>
   </header>
 
 
@@ -176,9 +176,6 @@
         var searchInput = document.getElementById("searchInput");
         searchInput.value = "";
 
-        window.baseQuery = "aa";
-        window.currentPage = 1;
-
         var chips = document.querySelectorAll(".chip-type");
         for (var i = 0; i < chips.length; i++) {
           chips[i].classList.remove("active");
@@ -189,8 +186,6 @@
 
         if (window.loadHomepageMovies) {
           window.loadHomepageMovies();
-        } else if (typeof loadPage === "function") {
-          loadPage(1);
         }
       });
     });
